@@ -44,5 +44,23 @@ namespace ProjWebAula05042021
             GVEmployee.DataSource = new EmployeeDB().GetAll();
             GVEmployee.DataBind();
         }
+
+        protected void GVEmployee_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            int index = Convert.ToInt32(e.CommandArgument);
+            GridViewRow row = GVEmployee.Rows[index];
+
+            Employee a = new Employee();
+            a.Id = Convert.ToInt32(row.Cells[0].Text);
+
+            if (e.CommandName == "EXCLUIR")
+            {
+                string teste = "";
+            }
+            else if (e.CommandName == "ALTERAR")
+            {
+                string teste1 = "";
+            }
+        }
     }
 }

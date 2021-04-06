@@ -59,8 +59,15 @@
             <tr>
                 <td class="auto-style2">&nbsp;</td>
                 <td>
-                    <asp:GridView ID="GVEmployee" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None">
+                    <asp:GridView ID="GVEmployee" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" AutoGenerateColumns="False" OnRowCommand="GVEmployee_RowCommand">
                         <AlternatingRowStyle BackColor="White" />
+                        <Columns>
+                            <asp:BoundField DataField="Id" HeaderText="Id" />
+                            <asp:BoundField DataField="Name" HeaderText="Nome" />
+                            <asp:BoundField DataField="Telephone" HeaderText="Telefone" />
+                            <asp:ButtonField ButtonType="Button" CommandName="EXCLUIR" Text="Excluir" />
+                            <asp:ButtonField ButtonType="Button" CommandName="ALTERAR" Text="Alterar" />
+                        </Columns>
                         <EditRowStyle BackColor="#2461BF" />
                         <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
                         <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
