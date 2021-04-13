@@ -53,21 +53,40 @@ namespace Dal
             return status;
         }
 
-        //Segundo momento:
-
         public Employee SelectById(int id)
         {
-            throw new NotImplementedException();
+            string sql = string.Format(Employee.GETBYID, id);
+            Employee employee;
+
+            using (var connection = new DB())
+            {
+                employee = TransformSQLReaderToList(connection.ExecQueryReturn(sql))[0];
+            }
+            return employee;
         }
 
-        public bool Update(Employee funcionario)
+        public bool Update(Employee employee)
         {
-            throw new NotImplementedException();
+            bool status = false;
+            string sql = string.Format(Employee.UPDATE, employee.Name, employee.Telephone, employee.Id);
+
+            using (var connection = new DB())
+            {
+                status = connection.ExecQuery(sql);
+            }
+            return status;
         }
 
         public bool Delete(int id)
         {
-            throw new NotImplementedException();
+            bool status = false;
+            string sql = string.Format(Employee.DELETE, id);
+
+            using (var connection = new DB())
+            {
+                status = connection.ExecQuery(sql);
+            }
+            return status;
         }
     }
 }

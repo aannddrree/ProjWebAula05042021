@@ -21,13 +21,27 @@ namespace ProjWebAula05042021
             Employee employee = getData();
             var db = new EmployeeDB();
 
-            if (db.Insert(employee))
+            if (employee.Id == 0)
             {
-                LblMsg.Text = "Registro inserido!";
-                LoadGrid();
+                if (db.Insert(employee))
+                {
+                    LblMsg.Text = "Registro inserido!";
+                }
+                else
+                    LblMsg.Text = "Erro ao inserir registro";
             }
             else
-                LblMsg.Text = "Erro ao inserir registro";
+            {
+
+                if (db.Update(employee))
+                {
+                    LblMsg.Text = "Registro atualizado!";
+                }
+                else
+                    LblMsg.Text = "Erro ao atualizar registro";
+            }
+
+            LoadGrid();
         }
 
         private Employee getData()
@@ -35,7 +49,8 @@ namespace ProjWebAula05042021
             return new Employee()
             {
                 Name = TxtNome.Text,
-                Telephone = TxtTelefone.Text
+                Telephone = TxtTelefone.Text,
+                Id = string.IsNullOrEmpty(IdH.Value) ? 0 : int.Parse(IdH.Value)
             };
         }
 
@@ -50,17 +65,32 @@ namespace ProjWebAula05042021
             int index = Convert.ToInt32(e.CommandArgument);
             GridViewRow row = GVEmployee.Rows[index];
 
-            Employee a = new Employee();
-            a.Id = Convert.ToInt32(row.Cells[0].Text);
+            int id = Convert.ToInt32(row.Cells[0].Text);
+
+            var db = new EmployeeDB();
 
             if (e.CommandName == "EXCLUIR")
             {
-                string teste = "";
+                db.Delete(id);
+                LoadGrid();
+
             }
             else if (e.CommandName == "ALTERAR")
             {
-                string teste1 = "";
+                Employee employee = db.SelectById(id);
+
+                TxtNome.Text = employee.Name;
+                TxtTelefone.Text = employee.Telephone;
+                IdH.Value = employee.Id.ToString();
             }
+        }
+
+        protected void btnNovo_Click(object sender, EventArgs e)
+        {
+            TxtNome.Text = "";
+            TxtTelefone.Text = "";
+            IdH.Value = "0";
+            TxtNome.Focus();
         }
     }
 }

@@ -28,6 +28,7 @@
                 <td class="auto-style2">&nbsp;</td>
                 <td>&nbsp;</td>
             </tr>
+            <asp:HiddenField ID="IdH" runat="server" />
             <tr>
                 <td class="auto-style3">Nome</td>
                 <td class="auto-style1">
@@ -50,6 +51,8 @@
                 <td class="auto-style2">&nbsp;</td>
                 <td>
                     <asp:Button ID="BtnSalvar" runat="server" OnClick="BtnSalvar_Click" Text="Salvar" />
+                &nbsp;
+                    <asp:Button ID="btnNovo" runat="server" OnClick="btnNovo_Click" Text="Novo" />
                 </td>
             </tr>
             <tr>
